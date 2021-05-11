@@ -1,7 +1,7 @@
 <?php
     include("servidor.php");
     $cliente = "SELECT * FROM cliente";
-    $detalle = "SELECT p.nomprod , v.fecha   FROM detalle as d  INNER JOIN producto as p  ON d.idproducto = p.idproducto INNER JOIN venta as v ON d.idventa = v.idventa;";
+    $detalle = "SELECT * FROM detalle;";
     $producto = "SELECT * FROM producto";
     $venta ="SELECT * FROM venta";
 ?>
@@ -23,50 +23,48 @@
 <div class="row">
         <div class="col mt-2">
              Seleccione Empleado
-                <form  class="mt-2" >
+                <form  class="mt-2" action="insertar.php" method="POST" >
                  <select class="col_01">
-                   
-                     <option>  </option>
-                   
+                     <?php  $resultado = mysqli_query($conexion , $cliente);
+                      while($row = mysqli_fetch_assoc($resultado)) { ?>
+                    <option class="opciones"> <?php echo $row["nombres"] ?> </option>
+                   <?php } mysqli_free_result($resultado) ?>
                     </select>
-                         </form>
+                        
                         </div>
                         <div class="col mt-2">
                             <label for="fechaInicio" class="form-label">Fecah Inicio</label>
-                            <input type="date" class="form-control" name="fechaInicio" id="fechaInicio" required='true'>
+                            <input type="date" class="form-control" name="f1" id="fechaInicio" required='true'>
                         </div>
                         <div class="col mt-2">
                             <label for="fechaFin" class="form-label">Fecha Fin</label>
-                            <input type="date" class="form-control" name="fechaFin" id="fechaFin" required='true'>
+                            <input type="date" class="form-control" name="f2" id="fechaFin" required='true'>
                         </div>
 
-                        <div class="row justify-content-start text-center">
+                    <div class="row justify-content-start text-center" action="insertar.php">
                     <div class="col_02">
-                        <button class="btn btn-danger btn-block" id="btnEnviar">
-                           Generar Reporte XML
-                        </button>
+                        <submit class="btn btn-danger btn-block">Generar Reporte XML </submit>
+            
                     </div>
-                </div>
- 
-</div>
+                   
+                    </div>
+                </form>
+    </div>
 
     
-                 
-
+              
     </div>
     <div class="container-table">
      <div class="table__title"> REPORTE</div>
      <div class="table__header">Fecha Inicio</div>
      <div class="table__header">Fecha Fin</div>
-     <div class="table__header">CARNET(DNI)</div>
+     <div class="table__header">PRECIO</div>
      <div class="table__header">Producto</div>
-
-
-
-
-
-
-
+    
+      
+    
+    
+ 
     </div>
 
 </body>
