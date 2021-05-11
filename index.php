@@ -1,7 +1,7 @@
 <?php
     include("servidor.php");
     $cliente = "SELECT * FROM cliente";
-    $detalle = "SELECT * FROM detalle;";
+    $detalle = "SELECT p.nomprod , v.fecha , d.precio FROM detalle as d  INNER JOIN producto as p  ON d.idproducto = p.idproducto INNER JOIN venta as v ON d.idventa = v.idventa;";
     $producto = "SELECT * FROM producto";
     $venta ="SELECT * FROM venta";
 ?>
@@ -61,7 +61,14 @@
      <div class="table__header">PRECIO</div>
      <div class="table__header">Producto</div>
     
-      
+     <?php $resultado = mysqli_query($conexion , $detalle);
+        while($row=mysqli_fetch_assoc($resultado)) {?>
+
+        <div class=table__item><?php echo $row["fecha"]; ?></div>
+      <div class=table__item><?php echo $row["fecha"]; ?> </div>
+      <div class=table__item><?php echo $row["precio"]; ?> </div>
+      <div class=table__item><?php echo $row["nomprod"]; ?> </div>
+        <?php } mysqli_free_result($resultado); ?>
     
     
  
